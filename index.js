@@ -39,11 +39,29 @@ setInterval(async () => {
    client.channels.cache.get("379384313793216512").send(await getQuote());
 }, 6 * 60 * 60 * 1000); // 6 horas em milisegundos
 
+async function getCat() {
+   const response = await fetch("https://cataas.com/cat?json=true");
+   const jsonData = await response.json();
+
+   const cat = jsonData.url;
+   return "https://cataas.com" + cat;
+}
+
+async function getDog() {
+   const response = await fetch("https://random.dog/woof.json");
+   const jsonData = await response.json();
+
+   const dog = jsonData.url;
+   return dog;
+}
+
 client.on("messageCreate", async (message) => {
    const responses = {
       "!cookie": getQuote,
       "!help": () =>
-         `Olá, ${message.author.username}!\nComandos legais:\n\n\`!cookie\`: frase inspiradora de autores famosos.\n\`!clean\`: limpa mensagens recentes do chat atual.\n\nO malvadão ainda está trabalhando em mais comandos.`,
+         `Olá, ${message.author.username}!\nComandos legais:\n\n\`!cookie\`: frase inspiradora de autores famosos\n\`!clean\`: limpa mensagens recentes do chat atual.\n\`!cat\`: imagens aleatórias de gatinhos.\n\`!dog\`: imagens e gifs aleatórios de doguinhos.\n\nO malvadão ainda está trabalhando em mais comandos.`,
+      "!cat": getCat,
+      "!dog": getDog,
    };
 
    if (message.content === "oi") {
