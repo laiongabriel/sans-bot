@@ -1,4 +1,9 @@
-import { Client, GatewayIntentBits, PermissionsBitField } from "discord.js";
+import {
+   ActivityType,
+   Client,
+   GatewayIntentBits,
+   PermissionsBitField,
+} from "discord.js";
 import "dotenv/config";
 import fetch from "node-fetch";
 
@@ -12,6 +17,9 @@ const client = new Client({
 
 client.on("ready", () => {
    console.log(`The bot ${client.user.username} is ready!`);
+   client.user.setPresence({
+      activities: [{ name: "!help", type: ActivityType.Listening }],
+   });
 });
 
 async function translate(text, target) {
