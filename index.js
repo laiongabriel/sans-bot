@@ -55,11 +55,23 @@ async function getDog() {
    return dog;
 }
 
+async function getVerse(book, chapterVerse) {
+   const response = await fetch(
+      `https://bible-api.com/${book}+${chapterVerse}?translation=almeida`
+   );
+   const jsonData = await response.json();
+
+   const reference = jsonData.reference;
+   const text = jsonData.text;
+
+   return text + "\n\n" + reference;
+}
+
 client.on("messageCreate", async (message) => {
    const responses = {
       "!cookie": getQuote,
       "!help": () =>
-         `Olá, ${message.author.username}!\nComandos legais:\n\n\`!cookie\`: frase inspiradora de autores famosos\n\`!clean\`: limpa mensagens recentes do chat atual.\n\`!cat\`: imagens aleatórias de gatinhos.\n\`!dog\`: imagens e gifs aleatórios de doguinhos.\n\nO malvadão ainda está trabalhando em mais comandos.`,
+         `Olá, ${message.author.username}!\nComandos legais:\n\n\`!cookie\`: frase inspiradora de autores famosos\n\`!clean\`: limpa mensagens recentes do chat atual.\n\`!cat\`: imagens aleatórias de gatinhos.\n\`!dog\`: imagens e gifs aleatórios de doguinhos.\n\`!bible\`: versículos da bíblia.\n\nO malvadão ainda está trabalhando em mais comandos.`,
       "!cat": getCat,
       "!dog": getDog,
    };
@@ -99,6 +111,20 @@ client.on("messageCreate", async (message) => {
 
       await message.channel.bulkDelete(numMessages + 1);
       await message.channel.send(`${numMessages} mensagens foram deletadas!`);
+   }
+
+   if (message.content.startsWith("!bible")) {
+      const args = message.content.split(" ");
+      if (args.length < 3) {
+         message.reply(
+            "Defina o livro, capítulo e versículo.\nExemplo: `!bible genesis 1:1`."
+         );
+         return;
+      }
+      const book = args[1];
+      const chapterVerse = args[2];
+
+      message.reply(await getVerse(book, chapterVerse));
    }
 
    const finalMessage = message.content.toLowerCase();
