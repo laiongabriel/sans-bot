@@ -79,13 +79,13 @@ client.on("messageCreate", async (message) => {
    const responses = {
       "!cookie": getQuote,
       "!help": () =>
-         `Olá, ${message.author.username}!\nComandos legais:\n\n\`!cookie\`: frase inspiradora de autores famosos\n\`!clean\`: limpa mensagens recentes do chat atual.\n\`!cat\`: imagens aleatórias de gatinhos.\n\`!dog\`: imagens e gifs aleatórios de doguinhos.\n\`!bible\`: versículos da bíblia.\n\nO malvadão ainda está trabalhando em mais comandos.`,
+         `Olá, ${message.author.username}!\nComandos legais:\n\n\`!cookie\`: frase inspiradora de autores famosos.\n\`!clean\`: limpa mensagens recentes do chat atual.\n\`!cat\`: imagens aleatórias de gatinhos.\n\`!dog\`: imagens e gifs aleatórios de doguinhos.\n\`!bible\`: versículos da bíblia.\n\nO malvadão ainda está trabalhando em mais comandos.`,
       "!cat": getCat,
       "!dog": getDog,
    };
 
    if (message.content === "oi") {
-      if (Math.random() <= 0.2) message.reply("oi LEPROSO");
+      if (Math.random() <= 0.2) message.reply("oi BANDIDO");
    } else if (message.content === "perdi") {
       if (Math.random() <= 0.2) message.reply("posso te ajudar a encontrar?");
    } else if (message.content === "mlk") {
