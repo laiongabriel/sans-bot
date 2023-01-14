@@ -117,7 +117,7 @@ client.on("messageCreate", async (message) => {
          );
       }
 
-      await message.channel.bulkDelete(numMessages + 1);
+      await message.channel.bulkDelete(numMessages + 1, true);
       await message.channel.send(`${numMessages} mensagens foram deletadas!`);
    }
 
