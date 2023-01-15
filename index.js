@@ -43,11 +43,6 @@ async function getQuote() {
    return `${translatedQuote}\n\n- ${author}`;
 }
 
-// Executa a função getQuote a cada 6 horas em um canal de texto específico
-setInterval(async () => {
-   client.channels.cache.get("379384313793216512").send(await getQuote());
-}, 6 * 60 * 60 * 1000); // 6 horas em milisegundos
-
 async function getCat() {
    const response = await fetch("https://cataas.com/cat?json=true");
    const jsonData = await response.json();
