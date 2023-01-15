@@ -4,6 +4,7 @@ import {
    GatewayIntentBits,
    PermissionsBitField,
 } from "discord.js";
+import { Countdown } from "./countdown.js";
 import "dotenv/config";
 import fetch from "node-fetch";
 
@@ -75,13 +76,20 @@ async function getVerse(book, chapterVerse) {
    return text + "\n\n" + reference;
 }
 
+function ferias() {
+   const UfraEndOfSemester = new Countdown("19 May 2023 23:59:59 GMT-0300");
+
+   return `Faltam ${UfraEndOfSemester.countdown.days} dias e ${UfraEndOfSemester.countdown.hours} horas para o final do semestre! Continue estudando!`;
+}
+
 client.on("messageCreate", async (message) => {
    const responses = {
-      "!cookie": getQuote,
       "!help": () =>
          `Olá, ${message.author.username}!\nComandos legais:\n\n\`!cookie\`: frase inspiradora de autores famosos.\n\`!clean\`: limpa mensagens recentes do chat atual.\n\`!cat\`: imagens aleatórias de gatinhos.\n\`!dog\`: imagens e gifs aleatórios de doguinhos.\n\`!bible\`: versículos da bíblia.\n\nO malvadão ainda está trabalhando em mais comandos.`,
+      "!cookie": getQuote,
       "!cat": getCat,
       "!dog": getDog,
+      "!ferias": ferias,
    };
 
    if (message.content === "oi") {
