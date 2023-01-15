@@ -6,7 +6,6 @@ import {
 } from "discord.js";
 import { Countdown } from "./countdown.js";
 import "dotenv/config";
-import fetch from "node-fetch";
 
 const client = new Client({
    intents: [
