@@ -1,11 +1,18 @@
-import {
+const {
    ActivityType,
    Client,
    GatewayIntentBits,
    PermissionsBitField,
-} from "discord.js";
-import { getQuote, getCat, getDog, getVerse, ferias } from "./functions.js";
-import "dotenv/config";
+} = require("discord.js");
+const {
+   getQuote,
+   getCat,
+   getDog,
+   getVerse,
+   ferias,
+   getWiki,
+} = require("./functions.js");
+require("dotenv/config");
 
 const client = new Client({
    intents: [
@@ -47,7 +54,8 @@ client.on("messageCreate", async (message) => {
             PermissionsBitField.Flags.ManageMessages
          )
       ) {
-         return message.reply("Você não tem permissão para deletar mensagens.");
+         message.reply("Você não tem permissão para deletar mensagens.");
+         return;
       }
 
       // Separa o comando da quantidade de mensagens a serem deletadas
@@ -56,13 +64,15 @@ client.on("messageCreate", async (message) => {
       const numMessages = Number(args[1]);
 
       if (isNaN(numMessages) || numMessages <= 0) {
-         return message.reply(
+         message.reply(
             "Forneça um número válido de mensagens a serem deletadas.\nExemplo: `!clean 5`."
          );
+         return;
       } else if (numMessages > 99) {
-         return message.reply(
+         message.reply(
             "Você só pode deletar no máximo 99 mensagens de uma vez."
          );
+         return;
       }
 
       await message.channel.bulkDelete(numMessages + 1, true);
@@ -81,6 +91,12 @@ client.on("messageCreate", async (message) => {
       const chapterVerse = args[2];
 
       message.reply(await getVerse(book, chapterVerse));
+   }
+
+   if (message.content.startsWith("!wiki")) {
+      const argArray = message.content.split(" ").slice(1);
+      const expression = argArray.join("_");
+      return message.reply(await getWiki(expression));
    }
 
    const finalMessage = message.content.toLowerCase();

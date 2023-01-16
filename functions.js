@@ -1,4 +1,4 @@
-import { Countdown } from "./countdown.js";
+import Countdown from "./countdown.js";
 
 async function translate(text, target) {
    const response = await fetch(
@@ -52,4 +52,15 @@ export function ferias() {
    const UfraEndOfSemester = new Countdown("19 May 2023 23:59:59 GMT-0300");
 
    return `Faltam ${UfraEndOfSemester.countdown.days} dias e ${UfraEndOfSemester.countdown.hours} horas para o final do semestre! Continue estudando!`;
+}
+
+export async function getWiki(arg) {
+   const resolve = await fetch(
+      `https://pt.wikipedia.org/api/rest_v1/page/summary/${arg}`
+   );
+   const jsonData = await resolve.json();
+   const summary =
+      (jsonData && jsonData.extract) ||
+      `Não consegui encontrar o termo ${arg}. Você digitou corretamente?`;
+   return summary;
 }
