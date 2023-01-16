@@ -95,6 +95,6 @@ export async function getWiki(message) {
    const jsonData = await resolve.json();
    const summary =
       (jsonData && jsonData.extract) ||
-      `Não consegui encontrar o termo ${message.content}. Você digitou corretamente?`;
+      `Não consegui encontrar o termo "${argArray.join(" ")}". Você digitou corretamente?`;
    return summary;
 }
