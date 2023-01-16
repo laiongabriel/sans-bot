@@ -1,4 +1,4 @@
-export class Countdown {
+export default class Countdown {
    constructor(futureDate) {
       this.futureDate = futureDate;
    }
