@@ -8,7 +8,7 @@ export function getHelp(message) {
 export function ferias() {
    const UfraEndOfSemester = new Countdown("19 May 2023 23:59:59 GMT-0300");
 
-   return `Faltam ${UfraEndOfSemester.countdown.days} dias e ${UfraEndOfSemester.countdown.hours} horas para o final do semestre! Continue estudando!`;
+   return `Faltam ${UfraEndOfSemester.countdown.days} dias e ${UfraEndOfSemester.countdown.hours} horas para o final do semestre. Continue estudando!`;
 }
 
 async function translate(text, target) {
