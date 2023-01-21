@@ -7,7 +7,8 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export async function ask(message) {
-   const prompt = message.content.slice(1);
+   const prompt = message.content.substring(2);
+   console.log(prompt);
    try {
       const response = await openai.createCompletion({
          model: "text-davinci-003",
