@@ -17,7 +17,7 @@ export async function ask(message) {
          model: "text-davinci-003",
          prompt,
          temperature: 0.6,
-         max_tokens: 1024,
+         max_tokens: 512,
          top_p: 0.9,
          frequency_penalty: 0,
          presence_penalty: 0,
@@ -25,7 +25,7 @@ export async function ask(message) {
       const answer = response.data.choices[0].text;
       return answer;
    } catch (error) {
-      console.log(error);
+      console.error(error);
       return "Desculpe, não consegui encontrar uma resposta para a sua pergunta.";
    }
 }
