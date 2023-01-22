@@ -7,8 +7,11 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export async function ask(message) {
-   const prompt = message.content.substring(2);
+   const prompt = message.content.slice(2);
    console.log(prompt);
+   if (!prompt) {
+      return "`% <mensagem>`";
+   }
    try {
       const response = await openai.createCompletion({
          model: "text-davinci-003",
@@ -23,5 +26,6 @@ export async function ask(message) {
       return answer;
    } catch (error) {
       console.log(error);
+      return "Desculpe, não consegui encontrar uma resposta para a sua pergunta.";
    }
 }

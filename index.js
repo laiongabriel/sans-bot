@@ -18,6 +18,12 @@ client.on("ready", () => {
    });
 });
 
+client.on("reconnecting", () => {
+   client.user.setPresence({
+      activities: [{ name: "!help", type: ActivityType.Listening }],
+   });
+});
+
 client.on("messageCreate", async (message) => {
    if (message.content === "!help") message.reply(getHelp(message));
    else if (message.content === "!ferias") message.reply(ferias());

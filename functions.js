@@ -2,7 +2,7 @@ import Countdown from "./countdown.js";
 import { PermissionsBitField } from "discord.js";
 
 export function getHelp(message) {
-   return `Olá, ${message.author.username}!\nComandos legais:\n\n\`!cookie\`: frase inspiradora de autores famosos.\n\`!clean\`: limpa mensagens recentes do chat atual.\n\`!cat\`: imagens aleatórias de gatinhos.\n\`!dog\`: imagens e gifs aleatórios de doguinhos.\n\`!bible\`: versículos da bíblia.\n\nO malvadão ainda está trabalhando em mais comandos.`;
+   return `Olá, ${message.author.username}!\nComandos legais:\n\n\`!cookie\`: frase inspiradora de autores famosos.\n\`!clean\`: limpa mensagens recentes do chat atual.\n\`!cat\`: imagens aleatórias de gatinhos.\n\`!dog\`: imagens e gifs aleatórios de doguinhos.\n\`!bible\`: versículos da bíblia.\n\`!wiki <termo>\`: leia um resumo da wikipédia.\n\`% <mensagem>\`: pergunte algo à inteligência artificial (não é o ChatGPT).\n\nO malvadão ainda está trabalhando em mais comandos.`;
 }
 
 export function ferias() {
@@ -69,7 +69,6 @@ export async function clean(message) {
 }
 
 export async function getVerse(message) {
-   console.log(message.content);
    const args = message.content.split(" ");
    if (args.length < 3) {
       message.reply("Defina o livro, capítulo e versículo.\nExemplo: `!bible genesis 1:1`.");
@@ -84,7 +83,8 @@ export async function getVerse(message) {
    const reference = jsonData.reference;
    const text = jsonData.text;
 
-   return text + "\n\n" + reference;
+   if (!text || !reference) return "Não consegui encontrar. Você digitou corretamente?";
+   else return text + "\n\n" + reference;
 }
 
 export async function getWiki(message) {
