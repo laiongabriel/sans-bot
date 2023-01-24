@@ -1,6 +1,6 @@
 import { ActivityType, Client, GatewayIntentBits } from "discord.js";
 import { getQuote, getCat, getDog, getVerse, clean, ferias, getWiki, getHelp } from "./functions.js";
-import { ask } from "./ai.js";
+import { ask, getAiImage } from "./ai.js";
 import "dotenv/config";
 
 const client = new Client({
@@ -33,6 +33,7 @@ client.on("messageCreate", async (message) => {
    else if (message.content.startsWith("!clean")) await clean(message);
    else if (message.content.startsWith("!bible")) message.reply(await getVerse(message));
    else if (message.content.startsWith("!wiki")) message.reply(await getWiki(message));
+   else if (message.content.startsWith("!img")) message.reply(await getAiImage(message));
    else if (message.content.startsWith("%")) message.reply(await ask(message));
    // random
    else if (message.content === "oi") {
