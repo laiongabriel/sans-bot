@@ -39,8 +39,7 @@ export async function getAiImage(message) {
    try {
       const response = await openai.createImage({
          prompt,
-         n: 1,
-         size: "1024x1024",
+         size: "512x512",
       });
       const answer = response.data.data[0].url;
       if (!answer) return "Desculpe, não consegui gerar uma imagem para a sua requisição.";
