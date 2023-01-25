@@ -2,7 +2,7 @@ import Countdown from "./countdown.js";
 import { PermissionsBitField } from "discord.js";
 
 export function getHelp(message) {
-   return `Olá, ${message.author.username}!\nComandos legais:\n\n\`!cookie\`: frase inspiradora de autores famosos.\n\`!clean <número>\`: limpa mensagens recentes do chat atual.\n\`!cat\`: imagens aleatórias de gatinhos.\n\`!dog\`: imagens e gifs aleatórios de doguinhos.\n\`!bible <livro capítulo:versículo>\`: versículos da bíblia.\n\`!wiki <termo>\`: leia um resumo da wikipédia.\n\`!img <descrição>\`: peça para a IA gerar uma imagem!\n\`% <mensagem>\`: pergunte algo à IA (não é o ChatGPT).\n\nO malvadão ainda está trabalhando em mais comandos.`;
+   return `Olá, ${message.author.username}!\nComandos legais:\n\n\`!cookie\`: frase inspiradora de autores famosos.\n\`!clean <número>\`: limpa mensagens recentes do chat atual.\n\`!cat\`: imagens aleatórias de gatinhos.\n\`!dog\`: imagens e gifs aleatórios de doguinhos.\n\`!bible <livro capítulo:versículo>\`: versículos da bíblia.\n\`!wiki <termo>\`: leia um resumo da wikipédia.\n\`!img <descrição>\`: peça para a IA gerar uma imagem!\n\`% <mensagem>\`: pergunte algo à IA (não é o ChatGPT).`;
 }
 
 export function ferias() {
