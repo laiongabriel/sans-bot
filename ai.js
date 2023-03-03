@@ -13,17 +13,12 @@ async function ask(message) {
    console.log(prompt);
    if (!prompt) return "`!ask <mensagem>`";
    try {
-      const response = await openai.createCompletion({
-         model: "text-davinci-003",
-         prompt,
+      const completion = await openai.createChatCompletion({
+         model: "gpt-3.5-turbo",
          temperature: 0.6,
-         max_tokens: 1024,
-         top_p: 0.9,
-         frequency_penalty: 0.5,
-         presence_penalty: 0.5,
-         best_of: 1,
+         messages: [{ role: "user", content: prompt }],
       });
-      const answer = response.data.choices[0].text;
+      const answer = completion.data.choices[0].message.content;
       if (!answer)
          return "Desculpe, não consegui encontrar uma resposta para a sua pergunta.";
       else return answer;
