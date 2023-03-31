@@ -4,23 +4,23 @@ Welcome to Sans' repository, the home of the one and only Discord bot that combi
 
 ## Features:
 
-1. **Zen Quotes API**: Are you tired of basic quotes? Fear not! This bot fetches the finest selection of quotes to elevate your intellectual conversations. Just sit back and watch your friends be speechless.
+**Zen Quotes API**: Are you tired of basic quotes? Fear not! This bot fetches the finest selection of quotes to elevate your intellectual conversations. Just sit back and watch your friends be speechless.
 
 ![Zen Quotes](img/zen-quotes.png)
 
-2. **Cataas (Cat as a Service)**: Who doesn't love cats? This bot serves up a delightful variety of cat images on-demand. It's like having a virtual cat café right in your Discord server. Meow-nificent!
+**Cataas (Cat as a Service)**: Who doesn't love cats? This bot serves up a delightful variety of cat images on-demand. It's like having a virtual cat café right in your Discord server. Meow-nificent!
 
 ![Cataas](img/cat.png)
 
-3. **Random.dog**: Dogs? I didn't forget our canine friends! With this feature, you'll get a random dog image that is guaranteed to make you go "aww" and lighten up your day. It's paws-itively amazing!
+**Random.dog**: Dogs? I didn't forget our canine friends! With this feature, you'll get a random dog image that is guaranteed to make you go "aww" and lighten up your day. It's paws-itively amazing!
 
 ![Random.dog](img/dog.png)
 
-4. **Bible-API**: Are you feeling lost and need some divine guidance? This bot has you covered. Access a random Bible verse at any time for that much-needed spiritual enlightenment.
+**Bible-API**: Are you feeling lost and need some divine guidance? This bot has you covered. Access a random Bible verse at any time for that much-needed spiritual enlightenment. This one is unfortunately only available in pt-br.
 
 ![Bible-API](img/bible.png)
 
-5. **ChatGPT API**: Let's get chatty! Engage in deep, meaningful, and sometimes utterly bizarre conversations with the power of the ChatGPT API. It's like having a new friend who doesn't shy away from any topic.
+**ChatGPT API**: Let's get chatty! Engage in deep, meaningful, and sometimes utterly bizarre conversations with the power of the ChatGPT API. It's like having a new friend who doesn't shy away from any topic.
 
 ![Bible-API](img/ai.png)
 
