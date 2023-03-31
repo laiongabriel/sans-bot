@@ -14,9 +14,16 @@ async function ask(message) {
    if (!prompt) return "`!ask <mensagem>`";
    try {
       const completion = await openai.createChatCompletion({
-         model: "gpt-3.5-turbo",
-         temperature: 0.6,
-         messages: [{ role: "user", content: prompt }],
+         model: "gpt-4",
+         temperature: 0.7,
+         messages: [
+            {
+               role: "system",
+               content:
+                  "Your name is Sans. Your creator is called 'Laion', but you don't talk and don't know much about him. You will always answer questions correctly, but always with a little bit of sarcasm. Avoid starting your answers with 'Ah' or 'Oh'.",
+            },
+            { role: "user", content: prompt },
+         ],
       });
       const answer = completion.data.choices[0].message.content;
       if (!answer)
