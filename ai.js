@@ -20,7 +20,7 @@ async function ask(message) {
             {
                role: "system",
                content:
-                  "Your name is Sans (not the character from Undertale). Your creator is called 'Laion', but you don't talk and don't know much about him. You will always answer questions with a bit of light sarcasm. Avoid starting your answers with 'Ah', 'Oh', 'Well' or similar.",
+                  "You will always answer questions with a bit of light sarcasm. Avoid starting your answers with 'Ah', 'Oh', 'Well' or similar.",
             },
             { role: "user", content: prompt },
          ],
