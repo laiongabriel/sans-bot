@@ -8,12 +8,12 @@ module.exports = {
 
 function getHelp(message) {
    return (
-      `Olá, ${message.author.username}!\nComandos disponíveis:\n\n` +
-      `\`!cookie\`: frases inspiradoras em inglês.\n` +
-      `\`!cat\`: imagens aleatórias de gatinhos.\n` +
-      `\`!dog\`: imagens e gifs aleatórios de doguinhos.\n` +
+      `Olá, ${message.author.username}!\nAqui vão alguns comandos que você provavelmente vai esquecer em 5 minutos:\n\n` +
+      `\`!cookie\`: citações iluminadas de figuras famosas para começar o dia inspirado.\n` +
+      `\`!cat\`: prepare-se para uma overdose de fofura com fotos de gatinhos!\n` +
+      `\`!dog\`: quem resiste a doguinhos? Imagens e gifs para alegrar seu dia!\n` +
       `\`!bible <livro capítulo versículo>\`: versículos da bíblia.\n` +
-      `\`!ask <mensagem>\`: pergunte algo à IA (não é o ChatGPT).`
+      `\`!ask <mensagem>\`: pergunte algo à IA (gpt-4), e aguarde pela resposta mais espirituosa possível.`
    );
 }
 
