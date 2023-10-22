@@ -24,7 +24,7 @@ async function getQuote() {
 
       const [{ q: quote, a: author }] = jsonData;
 
-      return `${quote}\n\n- ${author}`;
+      return `${quote}\n` + `\\- ${author}`;
    } catch (err) {
       console.log(err);
       return "A API está com problemas. Tente novamente mais tarde.";
@@ -35,8 +35,8 @@ async function getCat() {
    try {
       const response = await fetch("https://cataas.com/cat?json=true");
       const jsonData = await response.json();
-      const cat = jsonData.url;
-      return "https://cataas.com" + cat;
+      const catId = jsonData._id;
+      return "https://cataas.com/cat/" + catId;
    } catch (err) {
       console.log(err);
       return "A API está com problemas. Tente novamente mais tarde.";
