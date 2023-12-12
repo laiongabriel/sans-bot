@@ -4,6 +4,7 @@ module.exports = {
    getCat,
    getDog,
    getVerse,
+   checkNicknames,
 };
 
 function getHelp(message) {
@@ -12,8 +13,7 @@ function getHelp(message) {
       `\`!cookie\`: citações iluminadas de figuras famosas para começar o dia inspirado.\n` +
       `\`!cat\`: prepare-se para uma overdose de fofura com fotos de gatinhos!\n` +
       `\`!dog\`: quem resiste a doguinhos? Imagens e gifs para alegrar seu dia!\n` +
-      `\`!bible <livro capítulo versículo>\`: versículos da bíblia.\n` +
-      `\`!ask <mensagem>\`: pergunte algo à IA (gpt-4), e aguarde pela resposta mais espirituosa possível.`
+      `\`!bible <livro capítulo versículo>\`: versículos da bíblia.\n`
    );
 }
 
@@ -75,5 +75,48 @@ async function getVerse(message) {
    } catch (err) {
       console.log(err);
       return "A API está com problemas. Tente novamente mais tarde.";
+   }
+}
+
+async function checkNicknames(message) {
+   try {
+      const nicknames = message.content
+         .substring(21)
+         .split(",")
+         .map((nickname) => nickname.trim());
+
+      const requests = nicknames.map((nickname) =>
+         fetch(`https://mush.com.br/api/player/${nickname}`)
+            .then((response) => response.json())
+            .then((data) => ({ nickname, data }))
+      );
+
+      const results = await Promise.all(requests);
+
+      let foundBannedNickname = false;
+      let foundNonBannedNickname = false;
+      let fakeNames = "";
+
+      results.forEach((result) => {
+         const { nickname, data } = result;
+         if (
+            (data.success === true && data.response.banned === true) ||
+            data.success === false
+         ) {
+            foundBannedNickname = true;
+            fakeNames += `\`${nickname}\` provavelmente é /nick. \n`;
+         } else if (data.success === true && !data.response.banned) {
+            foundNonBannedNickname = true;
+         }
+      });
+
+      if (!foundBannedNickname && foundNonBannedNickname) {
+         return "Não há /nick na partida.";
+      } else {
+         return fakeNames;
+      }
+   } catch (err) {
+      console.log(err);
+      return "Ocorreu um erro.";
    }
 }

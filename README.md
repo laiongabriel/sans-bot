@@ -1,6 +1,6 @@
 # Sans Bot 🤖
 
-Welcome to Sans' repository, the home of the one and only Discord bot that combines the powers of Zen Quotes, CATAAS, Random.dog, bible-api, and the amazing ChatGPT API. I guarantee that this bot will make you question why you ever used any other bot before.
+Welcome to Sans' repository, the home of the one and only Discord bot that combines the powers of Zen Quotes, CATAAS, Random.dog, and the bible-api. I guarantee that this bot will make you question why you ever used any other bot before.
 
 ## Features:
 
@@ -27,12 +27,6 @@ Dogs? I didn't forget our canine friends! With this feature, you'll get a random
 Are you feeling lost and need some divine guidance? This bot has you covered. Access a random Bible verse at any time for that much-needed spiritual enlightenment. This one is unfortunately only available in pt-br.
 
 ![Bible-API](img/bible.png)
-
-### ChatGPT API 🤖💬
-
-Let's get chatty! Engage in deep, meaningful, and sometimes utterly bizarre conversations with the power of the ChatGPT API. It's like having a new friend who doesn't shy away from any topic.
-
-![Bible-API](img/ai.png)
 
 ## Final Thoughts 🫵🏼💭
 

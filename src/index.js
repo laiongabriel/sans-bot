@@ -5,8 +5,8 @@ const {
    getDog,
    getVerse,
    getHelp,
+   checkNicknames,
 } = require("./functions.js");
-const ask = require("./ai.js");
 require("dotenv/config");
 
 const client = new Client({
@@ -35,8 +35,8 @@ client.on("messageCreate", async (message) => {
    else if (message.content === "!dog") sendTypingAndReply(message, getDog());
    else if (message.content.startsWith("!bible"))
       sendTypingAndReply(message, getVerse(message));
-   else if (message.content.startsWith("!ask"))
-      sendTypingAndReply(message, ask(message));
+   else if (message.content.startsWith("!nick"))
+      sendTypingAndReply(message, checkNicknames(message));
 });
 
 client.login(process.env.TOKEN);
