@@ -80,22 +80,28 @@ async function getVerse(message) {
 
 async function getLabyProfile(message) {
    let nameList = "";
+   let i = 0;
+   const nickRegex = /^[a-zA-Z0-9_]{1,16}$/;
    try {
       const match = message.content.match(/!h\s(.+)/i);
       const userName = match ? match[1] : null;
       if (userName === null) return "`!h <nick>`";
+      if (!nickRegex.test(userName)) return "Nick inválido.";
 
       const UuidResponse = await fetch(
-         `https://laby.net/api/v3/user/${userName}/uuid`
+         `https://api.mojang.com/users/profiles/minecraft/${userName}`
       );
       const UuidJson = await UuidResponse.json();
-      if (UuidJson.error === "Mojang API rate limit reached") {
-         return "Espere um momento para usar novamente.";
+      if (
+         UuidJson.errorMessage &&
+         UuidJson.errorMessage.includes("Couldn't find any profile with name")
+      ) {
+         return "Nick não encontrado.";
       }
-      if (UuidJson.message === "Not Found") return "Não encontrado.";
+      if (UuidJson.errorMessage) return UuidJson.errorMessage;
 
       const profileResponse = await fetch(
-         `https://laby.net/api/v3/user/${UuidJson.uuid}/profile`
+         `https://laby.net/api/v3/user/${UuidJson.id}/profile`
       );
       const profileJson = await profileResponse.json();
 
@@ -106,14 +112,12 @@ async function getLabyProfile(message) {
       );
 
       filteredHistoryArray.forEach((element) => {
-         nameList += `${element.name}\n`;
+         nameList += `\`${i++} - ${element.name}\`\n`;
       });
 
       return nameList;
    } catch (err) {
       console.log(err);
-      return `Ocorreu um erro. ${err}`;
-   } finally {
-      nameList = "";
+      return `Error: ${err}`;
    }
 }
