@@ -5,7 +5,7 @@ const {
    getDog,
    getVerse,
    getHelp,
-   checkNicknames,
+   getLabyProfile,
 } = require("./functions.js");
 require("dotenv/config");
 
@@ -18,7 +18,7 @@ const client = new Client({
 });
 
 client.on("ready", () => {
-   console.log(`The bot ${client.user.username} is ready!`);
+   console.log(`${client.user.username} is ready!`);
 });
 
 async function sendTypingAndReply(message, reply) {
@@ -27,16 +27,19 @@ async function sendTypingAndReply(message, reply) {
 }
 
 client.on("messageCreate", async (message) => {
-   if (message.content === "!help")
+   if (message.content === "!help") {
       sendTypingAndReply(message, getHelp(message));
-   else if (message.content === "!cookie")
+   } else if (message.content === "!cookie") {
       sendTypingAndReply(message, getQuote());
-   else if (message.content === "!cat") sendTypingAndReply(message, getCat());
-   else if (message.content === "!dog") sendTypingAndReply(message, getDog());
-   else if (message.content.startsWith("!bible"))
+   } else if (message.content === "!cat") {
+      sendTypingAndReply(message, getCat());
+   } else if (message.content === "!dog") {
+      sendTypingAndReply(message, getDog());
+   } else if (message.content.startsWith("!bible")) {
       sendTypingAndReply(message, getVerse(message));
-   else if (message.content.startsWith("!nick"))
-      sendTypingAndReply(message, checkNicknames(message));
+   } else if (message.content.startsWith("!h")) {
+      sendTypingAndReply(message, getLabyProfile(message));
+   }
 });
 
 client.login(process.env.TOKEN);

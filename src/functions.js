@@ -4,7 +4,7 @@ module.exports = {
    getCat,
    getDog,
    getVerse,
-   checkNicknames,
+   getLabyProfile,
 };
 
 function getHelp(message) {
@@ -78,45 +78,42 @@ async function getVerse(message) {
    }
 }
 
-async function checkNicknames(message) {
+async function getLabyProfile(message) {
+   let nameList = "";
    try {
-      const nicknames = message.content
-         .substring(21)
-         .split(",")
-         .map((nickname) => nickname.trim());
+      const match = message.content.match(/!h\s(.+)/i);
+      const userName = match ? match[1] : null;
+      if (userName === null) return "`!h <nick>`";
 
-      const requests = nicknames.map((nickname) =>
-         fetch(`https://mush.com.br/api/player/${nickname}`)
-            .then((response) => response.json())
-            .then((data) => ({ nickname, data }))
+      const UuidResponse = await fetch(
+         `https://laby.net/api/v3/user/${userName}/uuid`
+      );
+      const UuidJson = await UuidResponse.json();
+      if (UuidJson.error === "Mojang API rate limit reached") {
+         return "Espere um momento para usar novamente.";
+      }
+      if (UuidJson.message === "Not Found") return "Não encontrado.";
+
+      const profileResponse = await fetch(
+         `https://laby.net/api/v3/user/${UuidJson.uuid}/profile`
+      );
+      const profileJson = await profileResponse.json();
+
+      const historyArray = profileJson.username_history;
+
+      const filteredHistoryArray = historyArray.filter(
+         (element) => element.name !== "－"
       );
 
-      const results = await Promise.all(requests);
-
-      let foundBannedNickname = false;
-      let foundNonBannedNickname = false;
-      let fakeNames = "";
-
-      results.forEach((result) => {
-         const { nickname, data } = result;
-         if (
-            (data.success === true && data.response.banned === true) ||
-            data.success === false
-         ) {
-            foundBannedNickname = true;
-            fakeNames += `\`${nickname}\` provavelmente é /nick. \n`;
-         } else if (data.success === true && !data.response.banned) {
-            foundNonBannedNickname = true;
-         }
+      filteredHistoryArray.forEach((element) => {
+         nameList += `${element.name}\n`;
       });
 
-      if (!foundBannedNickname && foundNonBannedNickname) {
-         return "Não há /nick na partida.";
-      } else {
-         return fakeNames;
-      }
+      return nameList;
    } catch (err) {
       console.log(err);
-      return "Ocorreu um erro.";
+      return `Ocorreu um erro. ${err}`;
+   } finally {
+      nameList = "";
    }
 }
