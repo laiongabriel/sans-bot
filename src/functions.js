@@ -79,6 +79,7 @@ async function getVerse(message) {
 }
 
 async function getLabyProfile(message) {
+   let hiddenNicks = 0;
    let nameList = "";
    let i = 0;
    const nickRegex = /^[a-zA-Z0-9_]{1,16}$/;
@@ -107,15 +108,32 @@ async function getLabyProfile(message) {
 
       const historyArray = profileJson.username_history;
 
+      historyArray.forEach((element) => {
+         if (element.name === "－") hiddenNicks++;
+      });
+
       const filteredHistoryArray = historyArray.filter(
          (element) => element.name !== "－"
       );
 
       filteredHistoryArray.forEach((element) => {
-         nameList += `\`${i++} - ${element.name}\`\n`;
+         let readableDate = "(primeiro nick)";
+         if (element.changed_at !== null) {
+            readableDate = new Date(element.changed_at).toLocaleString(
+               "pt-BR",
+               { year: "numeric", month: "numeric", day: "numeric" }
+            );
+         }
+
+         nameList += `\`${i++}. ${element.name} ${readableDate}\`` + "\n";
       });
 
-      return nameList;
+      return (
+         nameList +
+         `\n\`${hiddenNicks} ${
+            hiddenNicks === 1 ? "nick" : "nicks"
+         } escondidos.\``
+      );
    } catch (err) {
       console.log(err);
       return `Error: ${err}`;
