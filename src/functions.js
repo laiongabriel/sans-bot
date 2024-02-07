@@ -87,25 +87,33 @@ async function getLabyProfile(message) {
       const match = message.content.match(/!h\s(.+)/i);
       const userName = match ? match[1] : null;
       if (userName === null) return "`!h <nick>`";
-      if (!nickRegex.test(userName)) return "Nick inválido.";
+      if (!nickRegex.test(userName)) return "`Nick inválido.`";
 
       const UuidResponse = await fetch(
          `https://api.mojang.com/users/profiles/minecraft/${userName}`
       );
+
+      if (!UuidResponse.ok) {
+         throw new Error(`Erro ao obter UUID. ${UuidResponse.statusText}`);
+      }
+
       const UuidJson = await UuidResponse.json();
       if (
          UuidJson.errorMessage &&
          UuidJson.errorMessage.includes("Couldn't find any profile with name")
       ) {
          return "Nick não encontrado.";
-      }
-      if (UuidJson.errorMessage) return UuidJson.errorMessage;
+      } else if (UuidJson.errorMessage) return UuidJson.errorMessage;
 
       const profileResponse = await fetch(
          `https://laby.net/api/v3/user/${UuidJson.id}/profile`
       );
-      const profileJson = await profileResponse.json();
 
+      if (!profileResponse.ok) {
+         throw new Error(`Erro ao obter perfil. ${profileResponse.statusText}`);
+      }
+
+      const profileJson = await profileResponse.json();
       const historyArray = profileJson.username_history;
 
       historyArray.forEach((element) => {
@@ -131,11 +139,11 @@ async function getLabyProfile(message) {
       return (
          nameList +
          `\n\`${hiddenNicks} ${
-            hiddenNicks === 1 ? "nick" : "nicks"
-         } escondidos.\``
+            hiddenNicks === 1 ? "nick escondido." : "nicks escondidos."
+         }\``
       );
    } catch (err) {
-      console.log(err);
-      return `Error: ${err}`;
+      console.log(`ERROR: ${err}`);
+      return err;
    }
 }
