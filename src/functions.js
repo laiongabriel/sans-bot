@@ -83,14 +83,17 @@ async function getLabyProfile(message) {
    let nameList = "";
    let i = 0;
    const nickRegex = /^[a-zA-Z0-9_]{1,16}$/;
+   const controller = new AbortController();
+
    try {
       const match = message.content.match(/!h\s(.+)/i);
       const userName = match ? match[1] : null;
       if (userName === null) return "`!h <nick>`";
-      if (!nickRegex.test(userName)) return "`Nick inválido.`";
+      if (!nickRegex.test(userName)) return "Nick inválido.";
 
       const UuidResponse = await fetch(
-         `https://api.mojang.com/users/profiles/minecraft/${userName}`
+         `https://api.mojang.com/users/profiles/minecraft/${userName}`,
+         { signal: controller.signal }
       );
 
       const UuidJson = await UuidResponse.json();
@@ -102,7 +105,8 @@ async function getLabyProfile(message) {
       } else if (UuidJson.errorMessage) return UuidJson.errorMessage;
 
       const profileResponse = await fetch(
-         `https://laby.net/api/v3/user/${UuidJson.id}/profile`
+         `https://laby.net/api/v3/user/${UuidJson.id}/profile`,
+         { signal: controller.signal }
       );
 
       const profileJson = await profileResponse.json();
@@ -135,7 +139,14 @@ async function getLabyProfile(message) {
          }\``
       );
    } catch (err) {
-      console.log(`ERROR: ${err}`);
-      return `Erro: ${err}`;
+      if (err.name !== "AbortError") {
+         console.log(`ERROR: ${err}`);
+         return `Erro: ${err}`;
+      } else {
+         console.log("Requisição abortada");
+         return "Requisição abortada.";
+      }
+   } finally {
+      controller.abort();
    }
 }
