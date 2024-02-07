@@ -92,17 +92,12 @@ async function getLabyProfile(message) {
       if (!nickRegex.test(userName)) return "Nick inválido.";
 
       const UuidResponse = await fetch(
-         `https://api.mojang.com/users/profiles/minecraft/${userName}`,
+         `https://api.minetools.eu/uuid/${userName}`,
          { signal: controller.signal }
       );
 
       const UuidJson = await UuidResponse.json();
-      if (
-         UuidJson.errorMessage &&
-         UuidJson.errorMessage.includes("Couldn't find any profile with name")
-      ) {
-         return "Nick não encontrado.";
-      } else if (UuidJson.errorMessage) return UuidJson.errorMessage;
+      if (UuidJson.id === null) return "Nick não encontrado.";
 
       const profileResponse = await fetch(
          `https://laby.net/api/v3/user/${UuidJson.id}/profile`,
