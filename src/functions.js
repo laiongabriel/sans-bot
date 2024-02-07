@@ -93,10 +93,6 @@ async function getLabyProfile(message) {
          `https://api.mojang.com/users/profiles/minecraft/${userName}`
       );
 
-      if (!UuidResponse.ok) {
-         throw new Error(`Erro ao obter UUID. ${UuidResponse.statusText}`);
-      }
-
       const UuidJson = await UuidResponse.json();
       if (
          UuidJson.errorMessage &&
@@ -144,6 +140,6 @@ async function getLabyProfile(message) {
       );
    } catch (err) {
       console.log(`ERROR: ${err}`);
-      return err;
+      return `Erro: ${err}`;
    }
 }
