@@ -105,10 +105,6 @@ async function getLabyProfile(message) {
          `https://laby.net/api/v3/user/${UuidJson.id}/profile`
       );
 
-      if (!profileResponse.ok) {
-         throw new Error(`Erro ao obter perfil. ${profileResponse.statusText}`);
-      }
-
       const profileJson = await profileResponse.json();
       const historyArray = profileJson.username_history;
 
