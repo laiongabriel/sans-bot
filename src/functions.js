@@ -81,7 +81,7 @@ async function getVerse(message) {
 async function getLabyProfile(message) {
    let hiddenNicks = 0;
    let nameList = "";
-   let i = 0;
+   let i = 1;
    const nickRegex = /^[a-zA-Z0-9_]{1,16}$/;
    const controller = new AbortController();
 
@@ -127,12 +127,16 @@ async function getLabyProfile(message) {
          nameList += `\`${i++}. ${element.name} ${readableDate}\`` + "\n";
       });
 
-      return (
-         nameList +
-         `\n\`${hiddenNicks} ${
-            hiddenNicks === 1 ? "nick escondido." : "nicks escondidos."
-         }\``
-      );
+      if (hiddenNicks < 1) {
+         return nameList;
+      } else {
+         return (
+            nameList +
+            `\n\`${hiddenNicks} ${
+               hiddenNicks === 1 ? "nick escondido." : "nicks escondidos."
+            }\``
+         );
+      }
    } catch (err) {
       if (err.name !== "AbortError") {
          console.log(`ERROR: ${err}`);
