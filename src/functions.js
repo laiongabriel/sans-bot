@@ -96,6 +96,8 @@ async function getLabyProfile(message) {
          { signal: controller.signal }
       );
 
+      if (UuidResponse.status !== 200) return "Aguarde um momento.";
+
       const UuidJson = await UuidResponse.json();
       if (UuidJson.id === null) return "Nick não encontrado.";
 
@@ -140,7 +142,7 @@ async function getLabyProfile(message) {
    } catch (err) {
       if (err.name !== "AbortError") {
          console.log(`ERROR: ${err}`);
-         return `Erro: ${err}`;
+         return `Erro: ${err}.`;
       } else {
          console.log("Requisição abortada");
          return "Requisição abortada.";
