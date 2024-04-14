@@ -13,7 +13,8 @@ function getHelp(message) {
       `\`!cookie\`: citações iluminadas de figuras famosas para começar o dia inspirado.\n` +
       `\`!cat\`: prepare-se para uma overdose de fofura com fotos de gatinhos!\n` +
       `\`!dog\`: quem resiste a doguinhos? Imagens e gifs para alegrar seu dia!\n` +
-      `\`!bible <livro capítulo versículo>\`: versículos da bíblia.\n`
+      `\`!bible <livro capítulo versículo>\`: versículos da bíblia.\n` +
+      `\`!h <nick>\`: ver o histórico de nicks de um jogador de Minecraft.\n`
    );
 }
 
