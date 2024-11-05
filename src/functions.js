@@ -1,18 +1,11 @@
-module.exports = {
-   getHelp,
-   getQuote,
-   getCat,
-   getDog,
-   getVerse,
-   getLabyProfile,
-};
+const { OpenAI } = require("openai");
 
 function getHelp(message) {
    return (
-      `Olá, ${message.author.username}!\nAqui vão alguns comandos que você provavelmente vai esquecer em 5 minutos:\n\n` +
+      `Olá, ${message.author.displayName}!\nComandos do Sans:\n\n` +
       `\`!cookie\`: citações iluminadas de figuras famosas para começar o dia inspirado.\n` +
       `\`!cat\`: prepare-se para uma overdose de fofura com fotos de gatinhos!\n` +
-      `\`!dog\`: quem resiste a doguinhos? Imagens e gifs para alegrar seu dia!\n` +
+      `\`!dog\`: quem resiste a doguinhos? Imagens e vídeos para alegrar seu dia!\n` +
       `\`!bible <livro capítulo versículo>\`: versículos da bíblia.\n` +
       `\`!h <nick>\`: ver o histórico de nicks de um jogador de Minecraft.\n`
    );
@@ -108,7 +101,7 @@ async function getLabyProfile(message) {
       );
 
       const profileJson = await profileResponse.json();
-      const historyArray = profileJson.username_history;
+      const historyArray = profileJson.name_history;
 
       historyArray.forEach((element) => {
          if (element.name === "－") hiddenNicks++;
@@ -152,3 +145,40 @@ async function getLabyProfile(message) {
       controller.abort();
    }
 }
+
+async function getAiResponse(message) {
+   const match = message.content.match(/!ai\s(.+)/i);
+   const userMessage = match ? match[1] : null;
+   console.log(userMessage);
+   const openai = new OpenAI({
+      apiKey: "pk-HfVtMdKbrfjdCAADCHhXvCijhvOJazYuhQHFBQUTXHfeljSn",
+      baseURL: "https://api.pawan.krd/pai-001/v1",
+   });
+
+   const chatCompletion = await openai.chat.completions.create({
+      messages: [
+         {
+            role: "system",
+            content:
+               "Responda as coisas que eu mandar (não necessariamente uma pergunta) de forma engraçada, como se fosse um amigo. As respostas devem ser curtas e diretas com um tom tosco e informal, e tudo em letras minúsculas, dentro do contexto da mensagem, de forma que faça sentido e a resposta tenha a ver com o que eu mandei.",
+         },
+         {
+            role: "user",
+            content: userMessage,
+         },
+      ],
+      model: "pai-001",
+   });
+
+   return chatCompletion.choices[0].message.content;
+}
+
+module.exports = {
+   getHelp,
+   getQuote,
+   getCat,
+   getDog,
+   getVerse,
+   getLabyProfile,
+   getAiResponse,
+};

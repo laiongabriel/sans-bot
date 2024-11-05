@@ -6,6 +6,7 @@ const {
    getVerse,
    getHelp,
    getLabyProfile,
+   getAiResponse,
 } = require("./functions.js");
 require("dotenv/config");
 
@@ -39,6 +40,8 @@ client.on("messageCreate", async (message) => {
       sendTypingAndReply(message, getVerse(message));
    } else if (message.content.startsWith("!h")) {
       sendTypingAndReply(message, getLabyProfile(message));
+   } else if (message.content.startsWith("!ai")) {
+      sendTypingAndReply(message, getAiResponse(message));
    }
 });
 
