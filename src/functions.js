@@ -1,5 +1,3 @@
-const { OpenAI } = require("openai");
-
 function getHelp(message) {
    return (
       `Olá, ${message.author.displayName}!\nComandos do Sans:\n\n` +
@@ -146,33 +144,6 @@ async function getLabyProfile(message) {
    }
 }
 
-async function getAiResponse(message) {
-   const match = message.content.match(/!ai\s(.+)/i);
-   const userMessage = match ? match[1] : null;
-   console.log(userMessage);
-   const openai = new OpenAI({
-      apiKey: "pk-HfVtMdKbrfjdCAADCHhXvCijhvOJazYuhQHFBQUTXHfeljSn",
-      baseURL: "https://api.pawan.krd/pai-001/v1",
-   });
-
-   const chatCompletion = await openai.chat.completions.create({
-      messages: [
-         {
-            role: "system",
-            content:
-               "Responda as coisas que eu mandar (não necessariamente uma pergunta) de forma engraçada, como se fosse um amigo. As respostas devem ser curtas e diretas com um tom tosco e informal, e tudo em letras minúsculas, dentro do contexto da mensagem, de forma que faça sentido e a resposta tenha a ver com o que eu mandei.",
-         },
-         {
-            role: "user",
-            content: userMessage,
-         },
-      ],
-      model: "pai-001",
-   });
-
-   return chatCompletion.choices[0].message.content;
-}
-
 module.exports = {
    getHelp,
    getQuote,
@@ -180,5 +151,4 @@ module.exports = {
    getDog,
    getVerse,
    getLabyProfile,
-   getAiResponse,
 };
